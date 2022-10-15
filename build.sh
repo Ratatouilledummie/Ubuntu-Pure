@@ -370,10 +370,10 @@ sudo xorriso \
    -e EFI/efiboot.img \
    -no-emul-boot \
    -append_partition 2 0xef isolinux/efiboot.img \
-   -output "~/$name-22.04-amd64.iso" \
+   -output "/home/runner/$name-22.04-amd64.iso" \
    -graft-points \
       "." \
       /boot/grub/bios.img=isolinux/bios.img \
       /EFI/efiboot.img=isolinux/efiboot.img
 
-md5sum ~/$name-22.04-amd64.iso > ~/$name-22.04-amd64.md5
+#md5sum ~/$name-22.04-amd64.iso > ~/$name-22.04-amd64.md5
