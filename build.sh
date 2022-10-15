@@ -7,7 +7,7 @@
 # If using ubuntu 21.10 or below, use lupin-casper instead of casper and use lib32gcc instead of lib32gcc-s1!
 
 # the name of the distro
-name="smolubuntu"
+name="Ubuntu-Pure"
 
 # Ubuntu Version
 version="jammy"
@@ -64,7 +64,13 @@ sudo chroot $HOME/$name/chroot sh -c "echo 'resolvconf resolvconf/linkify-resolv
 # Desktop Environment
 # FOr example, Ubuntu MATE.
 #sudo chroot $HOME/$name/chroot apt-mark hold gnome-shell
-#sudo chroot $HOME/$name/chroot apt install -y ubuntu-mate-desktop
+sudo chroot $HOME/$name/chroot apt install -y \
+    gnome-shell \
+    gnome-session \
+    fonts-cantarell \
+    adwaita-icon-theme-full \
+    vanilla-gnome-desktop \
+    gnome-session-wayland
 
 # Essential Packages - Do not remove them to not create problems.
 sudo chroot $HOME/$name/chroot apt install -y --fix-missing \
@@ -87,57 +93,29 @@ sudo chroot $HOME/$name/chroot apt install -y --fix-missing \
 
 # User interface dependent applications that require a --no-install-recommends flag to not install a full desktop environment!
 sudo chroot $HOME/$name/chroot apt install -y --fix-missing \
-   caja \
    xorg \
    xinit \
    pluma \
    gnome-disk-utility \
-   epiphany-browser \
-   terminator --no-install-recommends
+   epiphany-browser --no-install-recommends
 
 # User apps - Optional packages
 sudo chroot $HOME/$name/chroot apt install -y --fix-missing \
-   openbox \
-   ubuntu-restricted-extras \
    inetutils-ping \
    net-tools \
    ethtool \
-   eom \
    libelf-dev \
    tcpdump \
-   haveged \
-   iotop \
    testdisk \
-   netdiscover \
-   samba \
-   samba-common \
    cifs-utils \
-   speedtest-cli \
-   stress \
    fsarchiver \
    testdisk \
    libatasmart-bin \
-   openssh-server \
    dialog \
-   curl \
-   lm-sensors \
-   whois \
-   arp-scan \
-   traceroute \
-   mutt \
    udpcast \
-   htop \
-   sshpass \
    macchanger \
    alsa-base \
    pulseaudio \
-   w3m \
-   w3m-img \
-   rdesktop \
-   libgtk2.0-bin \
-   xterm \
-   inxi \
-   rsync \
    x11-xserver-utils \
    obconf \
    xserver-xorg-video-all \
@@ -145,39 +123,43 @@ sudo chroot $HOME/$name/chroot apt install -y --fix-missing \
    apt-utils \
    btrfs-progs \
    brightnessctl \
-   cups \
    printer-driver-all \
-   motion \
-   openvpn \
-   apache2 \
    gparted \
    gnome-maps \
    gnome-weather \
    hardinfo \
-   drawing
+   drawing \
+   gnome-maps \
+   gnome-weather \
+   polari \
+   gnome-documents \
+   gnome-photos \
+   gnome-music \
+   gnome-software \
+   gnome-videos
 
 # WINE { If you do not want it, comment bellow }
-sudo chroot $HOME/$name/chroot dpkg --add-architecture i386
-sudo chroot $HOME/$name/chroot apt update
-sudo chroot $HOME/$name/chroot apt install -y \
-   wine
+#sudo chroot $HOME/$name/chroot dpkg --add-architecture i386
+#sudo chroot $HOME/$name/chroot apt update
+#sudo chroot $HOME/$name/chroot apt install -y \
+#   wine
 
 # bcmwl-kernel-source = ERROR
 # Use it when booting on macbooks to have wifi.
 
 # Ubiquity (Uncomment to allow installation mode! Default, this ISO will run only LIVE)
 #sudo chroot $HOME/$name/chroot apt install -y \
-#    gparted \
-#    ubiquity \
-#    ubiquity-casper \
-#    ubiquity-frontend-gtk \
-#    ubiquity-slideshow-ubuntu-mate
+    gparted \
+    ubiquity \
+    ubiquity-casper \
+    ubiquity-frontend-gtk \
+    ubiquity-slideshow-ubuntu-desktop
 
 # Removing packages here
-sudo chroot $HOME/ubuntu-custom/chroot apt autoremove --purge -y \
-   gnome-terminal \
-   unattended-upgrades \
-   snapd
+#sudo chroot $HOME/ubuntu-custom/chroot apt autoremove --purge -y \
+#   gnome-terminal \
+#   unattended-upgrades \
+#   snapd
 
 # A little last update of the system
 sudo chroot $HOME/$name/chroot apt dist-upgrade -y
@@ -218,7 +200,7 @@ echo "FRAMEBUFFER=y" | sudo tee $HOME/$name/chroot/etc/initramfs-tools/conf.d/sp
 sudo sed -i 's/us/br/g' $HOME/$name/chroot/etc/default/keyboard
 
 # Putting SETTINGS inside ISO.
-sudo cp -rfv settings/* $HOME/$name/chroot/
+#sudo cp -rfv settings/* $HOME/$name/chroot/
 
 # Initialization image files
 cd $HOME/$name
@@ -388,10 +370,10 @@ sudo xorriso \
    -e EFI/efiboot.img \
    -no-emul-boot \
    -append_partition 2 0xef isolinux/efiboot.img \
-   -output "../iso/$name-22.04-amd64.iso" \
+   -output "/home/runner/$name-22.04-amd64.iso" \
    -graft-points \
       "." \
       /boot/grub/bios.img=isolinux/bios.img \
       /EFI/efiboot.img=isolinux/efiboot.img
 
-md5sum ../iso/$name-22.04-amd64.iso > ../iso/$name-22.04-amd64.md5
+md5sum /home/runner/$name-22.04-amd64.iso > /home/runner/$name-22.04-amd64.md5
