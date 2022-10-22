@@ -64,6 +64,8 @@ sudo chroot $HOME/$name/chroot sh -c "echo 'resolvconf resolvconf/linkify-resolv
 # Desktop Environment
 # FOr example, Ubuntu MATE.
 #sudo chroot $HOME/$name/chroot apt-mark hold gnome-shell
+sudo chroot $HOME/$name/chroot apt install -y tasksel
+sudo chroot $HOME/$name/chroot tasksel install vanilla-gnome-desktop
 sudo chroot $HOME/$name/chroot apt install -y \
     gnome-shell \
     gnome-session \
