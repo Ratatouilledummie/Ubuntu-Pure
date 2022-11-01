@@ -63,9 +63,8 @@ sudo chroot $HOME/$name/chroot sh -c "echo 'resolvconf resolvconf/linkify-resolv
 
 # Desktop Environment
 # FOr example, Ubuntu MATE.
-#sudo chroot $HOME/$name/chroot apt-mark hold gnome-shell
+# sudo chroot $HOME/$name/chroot apt-mark hold gnome-shell
 sudo chroot $HOME/$name/chroot apt install -y tasksel
-sudo chroot $HOME/$name/chroot tasksel install gnome-flashback-desktop
 sudo chroot $HOME/$name/chroot apt install -y \
     gnome-shell \
     gnome-session \
@@ -138,7 +137,8 @@ sudo chroot $HOME/$name/chroot apt install -y --fix-missing \
    gnome-photos \
    gnome-music \
    gnome-software \
-   gnome-videos
+   gnome-videos \
+   gnome-console
 
 # WINE { If you do not want it, comment bellow }
 #sudo chroot $HOME/$name/chroot dpkg --add-architecture i386
@@ -156,11 +156,16 @@ sudo chroot $HOME/$name/chroot apt install -y --fix-missing \
     ubiquity-casper \
     ubiquity-frontend-gtk \
     ubiquity-slideshow-ubuntu-desktop
+    
+# Desktop Tasksel Intallation 
+# This command make the tasksel gnome packages 
+
+sudo chroot $HOME/$name/chroot tasksel install gnome-desktop
+
 
 # Removing packages here
 #sudo chroot $HOME/ubuntu-custom/chroot apt autoremove --purge -y \
 #   gnome-terminal \
-#   unattended-upgrades \
 #   snapd
 
 # A little last update of the system
