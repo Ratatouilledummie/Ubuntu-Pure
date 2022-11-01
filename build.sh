@@ -158,9 +158,14 @@ sudo chroot $HOME/$name/chroot apt install -y --fix-missing \
     ubiquity-slideshow-ubuntu-desktop
     
 # Desktop Tasksel Intallation 
-# This command make the tasksel gnome packages 
+# This command make the tasksel gnome packages apt install vanilla-gnome-desktop
 
-sudo chroot $HOME/$name/chroot tasksel install gnome-desktop
+sudo chroot $HOME/$name/chroot apt install -y \
+              gnome-session \
+	      vanilla-gnome-desktop \
+	      fonts-cantarell \
+	      adwaita-icon-theme-full 
+sudo chroot $HOME/$name/chroot sudo update-alternatives --config gdm3-theme.gresource
 
 
 # Removing packages here
